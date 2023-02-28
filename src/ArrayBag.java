@@ -60,7 +60,7 @@ public class ArrayBag<T> implements BagInterface<T>{
     @Override
     public T remove() {
         T removedEntity = bag[numberOfEntities - 1];
-        this.remove(bag[numberOfEntities - 1]);
+        remove(removedEntity);
         return removedEntity;
     }
 
@@ -99,7 +99,7 @@ public class ArrayBag<T> implements BagInterface<T>{
     public int getFrequencyOf(T anEntry) {
         int frequency = 0;
 
-        for(int i = 0; i < numberOfEntities - 1; i++) {
+        for(int i = 0; i < numberOfEntities; i++) {
             if(bag[i] == anEntry) frequency++;
         }
         return frequency;
@@ -112,7 +112,7 @@ public class ArrayBag<T> implements BagInterface<T>{
 
     @Override
     public T[] toArray() {
-        return Arrays.copyOf(bag, BAG_SIZE);
+        return Arrays.copyOf(bag, numberOfEntities);
     }
 
     @Override
