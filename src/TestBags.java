@@ -1,11 +1,31 @@
+import java.util.Arrays;
+
 public class TestBags {
     public static void main(String[] args) {
-        ArrayBag<String> myBag = new ArrayBag<>(5);
+        ArrayBag<String> myBag = new ArrayBag<>();
 
         myBag.add("HELLO");
         myBag.add("GOODBYE");
 
         System.out.printf("My bag as an array: %s%n", myBag);
+
+        String[] arrayToBag = {"GOODBYE", "HELLO"};
+
+        System.out.printf("Making following array into a new bag (%s). . .%n", Arrays.toString(arrayToBag));
+
+        ArrayBag<String> myEqualsBag = new ArrayBag<>(arrayToBag);
+
+        System.out.printf("The test bag as an array: %s%n", myEqualsBag);
+
+        System.out.printf("My bag equals the test bag: %b%n", myBag.equals(myEqualsBag));
+
+        myEqualsBag.add("GREETINGS");
+        myEqualsBag.add("ADIEU");
+
+        System.out.printf("New items added to the test bag.%n" +
+                "The test bag now: %s%n", myEqualsBag);
+
+        System.out.printf("My bag equals the test bag: %b%n", myBag.equals(myEqualsBag));
 
         System.out.printf("How many objects are in my bag? %d%n", myBag.getCurrentSize());
 

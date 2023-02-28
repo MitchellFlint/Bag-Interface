@@ -1,37 +1,32 @@
 import java.util.Arrays;
 
 public class ArrayBag<T> implements BagInterface<T>{
-    private final T[] bag;
+    private T[] bag;
     private int numberOfEntities;
-    private final int BAG_SIZE;
+    private int bagSize = 1;
 
     public ArrayBag() {
-        BAG_SIZE = 25;
         @SuppressWarnings("unchecked")
-        T[] tempBag = (T[])new Object[BAG_SIZE];
-        bag = tempBag;
-    }
-
-    public ArrayBag(int bagSize) {
-        BAG_SIZE = bagSize;
-        @SuppressWarnings("unchecked")
-        T[] tempBag = (T[])new Object[BAG_SIZE];
+        T[] tempBag = (T[])new Object[bagSize];
         bag = tempBag;
     }
 
     public ArrayBag(T[] bag) {
-        BAG_SIZE = bag.length;
+        bagSize = bag.length;
+        numberOfEntities = bag.length;
         this.bag = Arrays.copyOf(bag, bag.length);
     }
 
-    public ArrayBag(T[] bag, int bagSize) {
-        BAG_SIZE = bagSize;
-        @SuppressWarnings("unchecked")
-        T[] tempBag = (T[])new Object[BAG_SIZE];
-        this.bag = tempBag;
-        for(int i = 0; i < bag.length && i < BAG_SIZE; i++) {
-            this.bag[i] = bag[i];
+    public boolean equals(ArrayBag<T> testArrayBag) {
+        if(this.numberOfEntities != testArrayBag.getCurrentSize())
+            return false;
+
+        for(int i = 0; i < this.numberOfEntities; i++) {
+            if(this.getFrequencyOf(bag[i]) != testArrayBag.getFrequencyOf(bag[i]))
+                return false;
         }
+
+        return true;
     }
 
     @Override
@@ -46,15 +41,23 @@ public class ArrayBag<T> implements BagInterface<T>{
 
     @Override
     public boolean add(T newEntry) {
-        if(isFullArray()) return false;
+//        if(isFullArray()) return false;
+        if (bagSize >= numberOfEntities) {
+            bagSize *= 2;
+            @SuppressWarnings("unchecked")
+            T[] tempBag = (T[])new Object[bagSize];
+
+            int i = 0;
+            for(T nextEntry : bag) {
+                tempBag[i] = nextEntry;
+                i++;
+            }
+            bag = tempBag;
+        }
 
         bag[numberOfEntities] = newEntry;
         numberOfEntities++;
         return true;
-    }
-
-    private boolean isFullArray() {
-        return numberOfEntities >= BAG_SIZE;
     }
 
     @Override
