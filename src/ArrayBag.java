@@ -210,7 +210,9 @@ public class ArrayBag<T> implements BagInterface<T> {
         return true;
     }
 
-
+    /**
+     * Doubles the size of the array that the bag is stored in.
+     */
     private void expandBag() {
         bagSize *= 2;
         @SuppressWarnings("unchecked")
@@ -224,7 +226,12 @@ public class ArrayBag<T> implements BagInterface<T> {
         bag = tempBag;
     }
 
-
+    /**
+     * Finds the last index of a specified entry.
+     *
+     * @param anEntry The entry you wish to find the index of.
+     * @return the last index of the specified entry.
+     */
     private int findLastIndex(Object anEntry) {
         boolean objectFound = false;
         int objectIndex = 0;
