@@ -68,6 +68,12 @@ public class TestBags {
 
         System.out.printf("My bag now: %s%n", myBag);
 
+        System.out.printf("Added two entries: %b %b%n", myBag.add("OKAY"), myBag.add("NOT OKAY"));
+
+        System.out.printf("Duplicated all entries in the bag? %b%n", myBag.duplicateAll());
+
+        System.out.printf("My bag now: %s%n", myBag);
+
         System.out.println("Test Complete!");
     }
 }

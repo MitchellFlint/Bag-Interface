@@ -126,4 +126,15 @@ public class ArrayBag<T> implements BagInterface<T>{
     public String toString() {
         return Arrays.toString(toArray());
     }
+
+    public boolean duplicateAll() {
+        if(bag.length < 2 * numberOfEntities) return false;
+
+        for(int i = 0; i < numberOfEntities; i++) {
+            bag[i + numberOfEntities] = bag[i];
+        }
+
+        numberOfEntities *= 2;
+        return true;
+    }
 }
