@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @param <T> The type of the entries in the bag.
  * @author Mitchell Flint
  */
-public class ArrayBag<T> implements BagInterface<T>{
+public class ArrayBag<T> implements BagInterface<T> {
     private T[] bag;
     private int numberOfEntries;
     private int bagSize = 1;
@@ -19,7 +19,7 @@ public class ArrayBag<T> implements BagInterface<T>{
      */
     public ArrayBag() {
         @SuppressWarnings("unchecked")
-        T[] tempBag = (T[])new Object[bagSize];
+        T[] tempBag = (T[]) new Object[bagSize];
         bag = tempBag;
     }
 
@@ -43,11 +43,11 @@ public class ArrayBag<T> implements BagInterface<T>{
      * @return Whether the bags are equal.
      */
     public boolean equals(ArrayBag<T> testArrayBag) {
-        if(this.numberOfEntries != testArrayBag.getCurrentSize())
+        if (this.getCurrentSize() != testArrayBag.getCurrentSize())
             return false;
 
-        for(int i = 0; i < this.numberOfEntries; i++) {
-            if(this.getFrequencyOf(bag[i]) != testArrayBag.getFrequencyOf(bag[i]))
+        for (int i = 0; i < this.numberOfEntries; i++) {
+            if (this.getFrequencyOf(bag[i]) != testArrayBag.getFrequencyOf(bag[i]))
                 return false;
         }
 
@@ -102,7 +102,7 @@ public class ArrayBag<T> implements BagInterface<T>{
      */
     @Override
     public T remove() {
-        if(numberOfEntries <= 0) return null;
+        if (numberOfEntries <= 0) return null;
         T removedEntity = bag[numberOfEntries - 1];
         remove(removedEntity);
         return removedEntity;
@@ -110,6 +110,7 @@ public class ArrayBag<T> implements BagInterface<T>{
 
 
     // TODO make sure to actually remove the entity, this is lazy
+
     /**
      * Removes a specified entry from the bag, checking if the entry was
      * even in the bag in the first place.
@@ -119,7 +120,7 @@ public class ArrayBag<T> implements BagInterface<T>{
      */
     @Override
     public boolean remove(T anEntry) {
-        if(!contains(anEntry)) return false;
+        if (!contains(anEntry)) return false;
 
         bag[findLastIndex(anEntry)] = bag[numberOfEntries - 1];
         numberOfEntries--;
@@ -129,6 +130,7 @@ public class ArrayBag<T> implements BagInterface<T>{
 
 
     // TODO make sure to actually remove the entities, this is lazy
+
     /**
      * Clears all entries from the bag.
      */
@@ -148,9 +150,9 @@ public class ArrayBag<T> implements BagInterface<T>{
     public int getFrequencyOf(T anEntry) {
         int frequency = 0;
 
-        for(T nextEntry : bag) {
-            if(nextEntry == anEntry) frequency++;
-        }
+        for (T nextEntry : bag)
+            if (nextEntry == anEntry) frequency++;
+
         return frequency;
     }
 
@@ -163,8 +165,8 @@ public class ArrayBag<T> implements BagInterface<T>{
      */
     @Override
     public boolean contains(T anEntry) {
-        for(T nextEntry : bag)
-            if(nextEntry == anEntry) return true;
+        for (T nextEntry : bag)
+            if (nextEntry == anEntry) return true;
 
         return false;
     }
@@ -198,9 +200,9 @@ public class ArrayBag<T> implements BagInterface<T>{
      * @return Whether the bag was successfully duplicated.
      */
     public boolean duplicateAll() {
-        if(bag.length < 2 * numberOfEntries) return false;
+        if (bag.length < 2 * numberOfEntries) return false;
 
-        for(int i = 0; i < numberOfEntries; i++) {
+        for (int i = 0; i < numberOfEntries; i++) {
             bag[i + numberOfEntries] = bag[i];
         }
 
@@ -212,10 +214,10 @@ public class ArrayBag<T> implements BagInterface<T>{
     private void expandBag() {
         bagSize *= 2;
         @SuppressWarnings("unchecked")
-        T[] tempBag = (T[])new Object[bagSize];
+        T[] tempBag = (T[]) new Object[bagSize];
 
         int i = 0;
-        for(T nextEntry : bag) {
+        for (T nextEntry : bag) {
             tempBag[i] = nextEntry;
             i++;
         }
@@ -227,8 +229,8 @@ public class ArrayBag<T> implements BagInterface<T>{
         boolean objectFound = false;
         int objectIndex = 0;
 
-        for(int i = numberOfEntries - 1; i >= 0 && !objectFound; i--) {
-            if(bag[i] == anEntry) {
+        for (int i = numberOfEntries - 1; i >= 0 && !objectFound; i--) {
+            if (bag[i] == anEntry) {
                 objectIndex = i;
                 objectFound = true;
             }
