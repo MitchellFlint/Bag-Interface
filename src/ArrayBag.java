@@ -43,21 +43,25 @@ public class ArrayBag<T> implements BagInterface<T>{
     public boolean add(T newEntry) {
 //        if(isFullArray()) return false;
         if (bagSize >= numberOfEntities) {
-            bagSize *= 2;
-            @SuppressWarnings("unchecked")
-            T[] tempBag = (T[])new Object[bagSize];
-
-            int i = 0;
-            for(T nextEntry : bag) {
-                tempBag[i] = nextEntry;
-                i++;
-            }
-            bag = tempBag;
+            expandBag();
         }
 
         bag[numberOfEntities] = newEntry;
         numberOfEntities++;
         return true;
+    }
+
+    private void expandBag() {
+        bagSize *= 2;
+        @SuppressWarnings("unchecked")
+        T[] tempBag = (T[])new Object[bagSize];
+
+        int i = 0;
+        for(T nextEntry : bag) {
+            tempBag[i] = nextEntry;
+            i++;
+        }
+        bag = tempBag;
     }
 
     @Override
