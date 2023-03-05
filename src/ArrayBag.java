@@ -12,6 +12,8 @@ public class ArrayBag<T> implements BagInterface<T> {
     private T[] bag;
     private int numberOfEntries;
     private int bagSize = 1;
+    private final boolean integrity;
+    private final int MAX_CAPACITY = 10000;
 
 
     /**
@@ -21,6 +23,7 @@ public class ArrayBag<T> implements BagInterface<T> {
         @SuppressWarnings("unchecked")
         T[] tempBag = (T[]) new Object[bagSize];
         bag = tempBag;
+        integrity = true;
     }
 
 
@@ -30,9 +33,13 @@ public class ArrayBag<T> implements BagInterface<T> {
      * @param toBag The array whose elements are copies.
      */
     public ArrayBag(T[] toBag) {
+        if(toBag.length > MAX_CAPACITY)
+            throw new IllegalStateException("Tried to create a bag with a capacity too large. please keep capacity below 10,000");
+
         bagSize = toBag.length;
         numberOfEntries = toBag.length;
         this.bag = Arrays.copyOf(toBag, toBag.length);
+        integrity = true;
     }
 
 
@@ -85,6 +92,11 @@ public class ArrayBag<T> implements BagInterface<T> {
      */
     @Override
     public boolean add(T newEntry) {
+        checkIntegrity();
+
+        if(!canExpand())
+            return false;
+
         if (bagSize >= numberOfEntries) {
             expandBag();
         }
@@ -102,6 +114,8 @@ public class ArrayBag<T> implements BagInterface<T> {
      */
     @Override
     public T remove() {
+        checkIntegrity();
+
         if (numberOfEntries <= 0) return null;
         T removedEntity = bag[numberOfEntries - 1];
         remove(removedEntity);
@@ -120,6 +134,8 @@ public class ArrayBag<T> implements BagInterface<T> {
      */
     @Override
     public boolean remove(T anEntry) {
+        checkIntegrity();
+
         if (!contains(anEntry)) return false;
 
         bag[findLastIndex(anEntry)] = bag[numberOfEntries - 1];
@@ -136,6 +152,7 @@ public class ArrayBag<T> implements BagInterface<T> {
      */
     @Override
     public void clear() {
+        checkIntegrity();
         numberOfEntries = 0;
     }
 
@@ -179,7 +196,12 @@ public class ArrayBag<T> implements BagInterface<T> {
      */
     @Override
     public T[] toArray() {
-        return Arrays.copyOf(bag, numberOfEntries);
+        @SuppressWarnings("unchecked")
+        T[] asArray = (T[]) new Object[numberOfEntries];
+
+        System.arraycopy(bag, 0, asArray, 0, numberOfEntries);
+
+        return asArray;
     }
 
 
@@ -200,6 +222,8 @@ public class ArrayBag<T> implements BagInterface<T> {
      * @return Whether the bag was successfully duplicated.
      */
     public boolean duplicateAll() {
+        checkIntegrity();
+
         if (bag.length < 2 * numberOfEntries) return false;
 
         for (int i = 0; i < numberOfEntries; i++) {
@@ -226,6 +250,10 @@ public class ArrayBag<T> implements BagInterface<T> {
         bag = tempBag;
     }
 
+    private boolean canExpand() {
+        return bagSize * 2 <= MAX_CAPACITY;
+    }
+
     /**
      * Finds the last index of a specified entry.
      *
@@ -244,5 +272,10 @@ public class ArrayBag<T> implements BagInterface<T> {
         }
 
         return objectIndex;
+    }
+
+    private void checkIntegrity() {
+        if (!integrity)
+            throw new SecurityException("ArrayBag object is corrupt");
     }
 }

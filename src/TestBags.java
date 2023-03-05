@@ -29,6 +29,12 @@ public class TestBags {
 
         System.out.printf("How many objects are in my bag? %d%n", myBag.getCurrentSize());
 
+        System.out.println("initializing an array with the same values as my bag. . .");
+
+        Object[] bagAsArray = myBag.toArray();
+
+        System.out.printf("This is my bag as an array: %s%n", Arrays.toString(bagAsArray));
+
         myBag.add("THIS IS A NEW ENTRY");
         myBag.add("THIS IS ANOTHER NEW ENTRY");
         myBag.add("THIS SHOULD BE THE LAST ENTRY");
