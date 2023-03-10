@@ -49,7 +49,7 @@ public class ArrayBag<T> implements BagInterface<T> {
      * @return Whether the bags are equal.
      */
     @Override
-    public boolean equals(ArrayBag<T> testArrayBag) {
+    public boolean equals(BagInterface<T> testArrayBag) {
         if (this.getCurrentSize() != testArrayBag.getCurrentSize())
             return false;
 

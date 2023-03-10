@@ -136,7 +136,7 @@ public class LinkedBag<T> implements BagInterface<T> {
     }
 
     @Override
-    public boolean equals(ArrayBag<T> testArrayBag) {
+    public boolean equals(BagInterface<T> testArrayBag) {
         return false;
     }
 
