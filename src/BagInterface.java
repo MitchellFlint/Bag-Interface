@@ -61,4 +61,19 @@ public interface BagInterface<T> {
      * Note: If the bag is empty, the returned array is empty.
      */
     T[] toArray();
+
+    /**
+     * Duplicates all entries in the bag.
+     *
+     * @return Whether the bag was successfully duplicated.
+     */
+    boolean duplicateAll();
+
+    /**
+     * Compares that two bags have the same frequency of each entry.
+     *
+     * @param testArrayBag The bag that will be tested against this one.
+     * @return Whether the bags are equal.
+     */
+    boolean equals(BagInterface<T> testArrayBag);
 } // end BagInterface

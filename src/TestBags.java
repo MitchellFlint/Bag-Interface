@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class TestBags {
     public static void main(String[] args) {
-        ArrayBag<String> myBag = new ArrayBag<>();
+        LinkedBag<String> myBag = new LinkedBag<>();
 
         myBag.add("HELLO");
         myBag.add("GOODBYE");
@@ -13,7 +13,7 @@ public class TestBags {
 
         System.out.printf("Making following array into a new bag (%s). . .%n", Arrays.toString(arrayToBag));
 
-        ArrayBag<String> myEqualsBag = new ArrayBag<>(arrayToBag);
+        LinkedBag<String> myEqualsBag = new LinkedBag<>(arrayToBag);
 
         System.out.printf("The test bag as an array: %s%n", myEqualsBag);
 
@@ -67,10 +67,14 @@ public class TestBags {
 
         System.out.printf("Is the bag empty? %b%n", myBag.isEmpty());
 
+        System.out.printf("The number of entries is: %d%n", myBag.getCurrentSize());
+
         System.out.println("Clearing bag. . .");
         myBag.clear();
 
         System.out.printf("Is the bag empty now? %b%n", myBag.isEmpty());
+
+        System.out.printf("The number of entries is: %d%n", myBag.getCurrentSize());
 
         System.out.printf("My bag now: %s%n", myBag);
 

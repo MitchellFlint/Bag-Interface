@@ -42,13 +42,13 @@ public class ArrayBag<T> implements BagInterface<T> {
         integrity = true;
     }
 
-
     /**
      * Compares that two bags have the same frequency of each entry.
      *
      * @param testArrayBag The bag that will be tested against this one.
      * @return Whether the bags are equal.
      */
+    @Override
     public boolean equals(ArrayBag<T> testArrayBag) {
         if (this.getCurrentSize() != testArrayBag.getCurrentSize())
             return false;
@@ -123,8 +123,6 @@ public class ArrayBag<T> implements BagInterface<T> {
     }
 
 
-    // TODO make sure to actually remove the entity, this is lazy
-
     /**
      * Removes a specified entry from the bag, checking if the entry was
      * even in the bag in the first place.
@@ -139,21 +137,20 @@ public class ArrayBag<T> implements BagInterface<T> {
         if (!contains(anEntry)) return false;
 
         bag[findLastIndex(anEntry)] = bag[numberOfEntries - 1];
+        bag[numberOfEntries] = null;
         numberOfEntries--;
 
         return true;
     }
 
 
-    // TODO make sure to actually remove the entities, this is lazy
-
     /**
      * Clears all entries from the bag.
      */
     @Override
     public void clear() {
-        checkIntegrity();
-        numberOfEntries = 0;
+        while(numberOfEntries > 0)
+            remove();
     }
 
 
@@ -221,6 +218,7 @@ public class ArrayBag<T> implements BagInterface<T> {
      *
      * @return Whether the bag was successfully duplicated.
      */
+    @Override
     public boolean duplicateAll() {
         checkIntegrity();
 
